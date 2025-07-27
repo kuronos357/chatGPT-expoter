@@ -63,7 +63,7 @@ def export_selected(conversations, selected_indices, output_dir):
             writer.writerow(["role", "content"])
             writer.writerows(messages)
 
-    messagebox.showinfo("Export Complete", f"Selected conversations have been exported to '{output_dir}'.")
+    messagebox.showinfo("エクスポートできたよ！", f"以下に保存されたよ！'{output_dir}'.")
 
 def main():
     root = tk.Tk()
