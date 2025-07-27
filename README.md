@@ -1,0 +1,2 @@
+# chatGPT-expoter
+chatGPTのログをCSV形式でトークルームごとに加工するアプリ
