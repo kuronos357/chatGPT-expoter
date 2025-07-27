@@ -9,15 +9,15 @@ def get_conversations(file_path):
         with open(file_path, "r", encoding="utf-8") as f:
             return json.load(f)
     except FileNotFoundError:
-        messagebox.showerror("File Not Found", f"The file '{file_path}' was not found.")
+        messagebox.showerror("ファイルが見つかりません", f"The file '{file_path}' was not found.")
         return None
     except json.JSONDecodeError:
-        messagebox.showerror("Invalid JSON", f"The file '{file_path}' is not a valid JSON file.")
+        messagebox.showerror("入力エラー", f"The file '{file_path}' is not a valid JSON file.")
         return None
 
 def export_selected(conversations, selected_indices, output_dir):
     if not selected_indices:
-        messagebox.showinfo("No Selection", "Please select at least one conversation to export.")
+        messagebox.showinfo("選んでない", "エクスポートする会話を少なくとも1つ選択してください。")
         return
 
     if not os.path.exists(output_dir):
@@ -73,7 +73,7 @@ def main():
     input_frame = tk.Frame(root)
     input_frame.pack(pady=5, padx=10, fill=tk.X)
 
-    input_label = tk.Label(input_frame, text="Input JSON File:")
+    input_label = tk.Label(input_frame, text="入力元:")
     input_label.pack(side=tk.LEFT)
 
     input_path_var = tk.StringVar(value="Project/chatGPTexporter/conversations.json")
@@ -86,14 +86,14 @@ def main():
             input_path_var.set(file_path)
             load_conversations()
 
-    browse_input_button = tk.Button(input_frame, text="Browse...", command=browse_input_file)
+    browse_input_button = tk.Button(input_frame, text="選択", command=browse_input_file)
     browse_input_button.pack(side=tk.LEFT)
 
     # --- Output Path ---
     output_frame = tk.Frame(root)
     output_frame.pack(pady=5, padx=10, fill=tk.X)
 
-    output_label = tk.Label(output_frame, text="Output Directory:")
+    output_label = tk.Label(output_frame, text="出力先:")
     output_label.pack(side=tk.LEFT)
 
     output_path_var = tk.StringVar(value="Project/chatGPTexporter/出力")
@@ -105,7 +105,7 @@ def main():
         if dir_path:
             output_path_var.set(dir_path)
 
-    browse_output_button = tk.Button(output_frame, text="Browse...", command=browse_output_dir)
+    browse_output_button = tk.Button(output_frame, text="選択", command=browse_output_dir)
     browse_output_button.pack(side=tk.LEFT)
 
     # --- Conversation List ---
@@ -132,7 +132,7 @@ def main():
                 listbox.insert(tk.END, conv.get("title", "untitled"))
 
     # --- Export Button ---
-    export_button = tk.Button(root, text="Export Selected", command=lambda: export_selected(conversations, listbox.curselection(), output_path_var.get()))
+    export_button = tk.Button(root, text="選択した会話をエクスポート", command=lambda: export_selected(conversations, listbox.curselection(), output_path_var.get()))
     export_button.pack(pady=5)
 
     # Initial load
